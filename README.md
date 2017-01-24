@@ -1,4 +1,4 @@
-# concise-reflector
+# concise-reflector [![Build Status](https://travis-ci.org/silk8192/concise-reflector.svg?branch=master)](https://travis-ci.org/silk8192/concise-reflector)
 A concise and easy-to-use wrapper for the Java Reflection API ([java.lang.reflect](https://docs.oracle.com/javase/tutorial/reflect/)) that allows for reflection operations in a very non-verbose manner. It also includes a class file manager that allows for you to quickly load and manage Class files from a jar or a directory.
 
 ## Download:
