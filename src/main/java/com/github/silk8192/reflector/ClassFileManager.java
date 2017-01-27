@@ -1,7 +1,5 @@
 package com.github.silk8192.reflector;
 
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -92,7 +90,7 @@ public class ClassFileManager {
     public void add(Path path) throws IOException {
         String name = path.toFile().getName();
 
-        if (FilenameUtils.getExtension(name).equals("jar")) {
+        if (name.toLowerCase().endsWith(".jar")) {
             try (
                 URLClassLoader loader = new URLClassLoader(new URL[] { path.toUri().toURL() });
                 ZipFile zf = new ZipFile(path.toFile())
@@ -101,8 +99,9 @@ public class ClassFileManager {
 
                 while (entries.hasMoreElements()) {
                     ZipEntry entry = (ZipEntry) entries.nextElement();
+                    String entryName = entry.getName();
 
-                    if (FilenameUtils.getExtension(entry.getName()).equals("class") && !entry.getName().contains("$")) {
+                    if (entryName.toLowerCase().endsWith(".class") && !entryName.contains("$")) {
                         String className = entry.getName().replace(".class", "").replace("\\", ".").replace("/", ".");
 
                         try {
@@ -114,8 +113,8 @@ public class ClassFileManager {
                 }
             }
         }
-        else if (FilenameUtils.getExtension(name).equals("class") && !name.contains("$")) {
-            String className = FilenameUtils.removeExtension(path.toString());
+        else if (name.toLowerCase().endsWith(".class") && !name.contains("$")) {
+            String className = path.toString().substring(0, path.toString().lastIndexOf('.'));
             className = className.replace("\\", "."); // replace forward slashes in path to "."
             URL i = path.toUri().toURL();
             
@@ -148,7 +147,7 @@ public class ClassFileManager {
         Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                if (!loadJar && FilenameUtils.isExtension(file.toFile().getName(), "jar")) {
+                if (!loadJar && file.toFile().getName().toLowerCase().endsWith(".jar")) {
                     return FileVisitResult.CONTINUE;
                 }
                 
