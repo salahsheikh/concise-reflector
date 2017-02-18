@@ -105,7 +105,7 @@ public class Reflector {
                 logger.info("Method does not match argument types!");
                 throw new NoSuchMethodException();
             } else if (method.getReturnType() == void.class) {
-                method.invoke(object);
+                method.invoke(object, args);
                 return new Reflector(object);
             } else {
                 return new Reflector(method.invoke(object, args));
@@ -115,7 +115,7 @@ public class Reflector {
                 if (method.getName().equals(name) && checkArgumentTypes(method.getParameterTypes(), types)) {
                     try {
                         if (method.getReturnType() == void.class) {
-                            method.invoke(object);
+                            method.invoke(object, args);
                             return new Reflector(object);
                         } else {
                             return new Reflector(method.invoke(object, args));
