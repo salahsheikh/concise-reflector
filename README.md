@@ -39,7 +39,6 @@ cfm.getClass("foo.Bar");
 
 ## Dependencies:
 * SLF4j Logging
-* Commons-io
 
 ## License:
 This project is under the MIT license. See the ```LICENSE``` file for terms.
