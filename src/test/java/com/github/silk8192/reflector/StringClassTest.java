@@ -14,6 +14,8 @@ public class StringClassTest {
 
     @Test
     public void testMethodAccess() {
-        Assert.assertEquals((int) forClass(String.class).create("fooBar").invoke("length").get(), 6);
+        String testString = "fooBar";
+        int length = testString.length();
+        Assert.assertEquals((int) forClass(String.class).create("fooBar").invoke("length").get(), length);
     }
 }
